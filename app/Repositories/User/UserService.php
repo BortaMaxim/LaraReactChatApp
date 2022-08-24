@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -138,6 +140,28 @@ class UserService implements Userable
         $message = $response == Password::PASSWORD_RESET ? 'Password reset successfully' : 'Please write new password';
         return response()->json([
             'message' => $message,
+        ]);
+    }
+
+    public function updateProfile($request)
+    {
+
+        $request->validated();
+        $avatar_path = $request->avatar;
+        if ($avatar = $request->file('avatar')) {
+            $avatar->move('avatars', $avatar_path);
+        }
+
+        $auth_user = auth()->user();
+        $auth_user->name = $request->name;
+        $auth_user->email = $request->email;
+        $auth_user->avatar = $avatar_path;
+        $auth_user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'user updated!',
+            'data' => $auth_user,
         ]);
     }
 }

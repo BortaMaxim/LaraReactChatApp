@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'auth', ',middleware' => 'cors'], function ($router) {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('profile', [UserController::class, 'view_profile']);
+        Route::post('update-profile', [ProfileController::class, 'update_profile']);
         Route::get('logout', [UserController::class, 'logout_user']);
     });
 });

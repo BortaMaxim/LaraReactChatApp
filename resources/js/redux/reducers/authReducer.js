@@ -1,4 +1,5 @@
 import * as AuthActionTypes from '../types/AuthActionTypes'
+import * as ProfileActionTypes from "../types/ProfileActionTypes";
 
 const initialState = {
     loading: false,
@@ -99,6 +100,23 @@ export const authReducer = (state = initialState, action) => {
                 successResponse: action.payload
             }
         case AuthActionTypes.RESET_PASSWORD_ERROR:
+            return {
+                ...state,
+                loading: false,
+                errorResponse: action.payload
+            }
+        case ProfileActionTypes.UPDATING:
+            return {
+                ...state,
+                loading: true
+            }
+        case ProfileActionTypes.UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                successResponse: action.payload
+            }
+        case ProfileActionTypes.UPDATE_PROFILE_ERROR:
             return {
                 ...state,
                 loading: false,

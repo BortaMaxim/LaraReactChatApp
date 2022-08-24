@@ -17,14 +17,17 @@ export const NavLinks = ({handleActive, id, verifiedToken, profileSelector}) => 
                                 ? <CustomSpinner text={'white'}/>
                                 : <>
                                     {
-                                        profile !== {}
-                                        && <span className="text-white">
+                                        successResponse.success === true
+                                        ? <span className="text-white">
+                                                {successResponse.data.name}
+                                        </span>
+                                        :<span className="text-white">
                                             {profile.name}
                                         </span>
                                     }
                                     <img
-                                        style={{width: 40, heigth: 40, marginLeft: 10}}
-                                        src={profile.avatar === null ? defaultAvatar: profile.avatar}
+                                        style={{width: '40px', heigth: '40px', marginLeft: '10px', borderRadius: '50%'}}
+                                        src={profile.avatar === null ? defaultAvatar : profile.avatar}
                                         alt={profile.name}
                                     />
                                 </>

@@ -14,7 +14,7 @@ export const Tooltip = ({children, text}) => {
                 {children}
             </div>
             {
-                isHover ? <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                isHover ? <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-secondary">
                     {text}
                 </span>: null
             }

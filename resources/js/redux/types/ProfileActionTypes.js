@@ -1,0 +1,3 @@
+export const UPDATING = 'profile/UPDATING'
+export const UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS'
+export const UPDATE_PROFILE_ERROR = 'profile/UPDATE_PROFILE_ERROR'

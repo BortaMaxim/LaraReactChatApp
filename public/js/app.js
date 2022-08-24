@@ -5872,7 +5872,7 @@ var Tooltip = function Tooltip(_ref) {
       onMouseOut: handleMouseOut,
       children: children
     }), isHover ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-      className: "position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary",
+      className: "position-absolute top-0 start-50 translate-middle badge rounded-pill bg-secondary",
       children: text
     }) : null]
   });
@@ -6024,14 +6024,18 @@ var NavLinks = function NavLinks(_ref) {
       children: [isFetching === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_2__.CustomSpinner, {
         text: 'white'
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-        children: [profile !== {} && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        children: [successResponse.success === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "text-white",
+          children: successResponse.data.name
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "text-white",
           children: profile.name
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           style: {
-            width: 40,
-            heigth: 40,
-            marginLeft: 10
+            width: '40px',
+            heigth: '40px',
+            marginLeft: '10px',
+            borderRadius: '50%'
           },
           src: profile.avatar === null ? _assets_default_png__WEBPACK_IMPORTED_MODULE_1__["default"] : profile.avatar,
           alt: profile.name
@@ -6541,39 +6545,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Profile": () => (/* binding */ Profile)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _assets_default_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/default.png */ "./resources/assets/default.png");
-/* harmony import */ var _Components_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Spinner/CustomSpinner */ "./resources/js/Components/Spinner/CustomSpinner.js");
-/* harmony import */ var _Components_CustomTooltip_Tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/CustomTooltip/Tooltip */ "./resources/js/Components/CustomTooltip/Tooltip.js");
-/* harmony import */ var _ProfileLeft__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProfileLeft */ "./resources/js/Pages/Profile/ProfileLeft.js");
-/* harmony import */ var _ProfileRight__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProfileRight */ "./resources/js/Pages/Profile/ProfileRight.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Components_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Components/Spinner/CustomSpinner */ "./resources/js/Components/Spinner/CustomSpinner.js");
+/* harmony import */ var _ProfileLeft__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProfileLeft */ "./resources/js/Pages/Profile/ProfileLeft.js");
+/* harmony import */ var _ProfileRight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProfileRight */ "./resources/js/Pages/Profile/ProfileRight.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
 
 
-
-
-var Profile = function Profile(_ref) {
-  var profileSelector = _ref.profileSelector;
+var Profile = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.memo(function (props) {
+  var profileSelector = props.profileSelector,
+      handleChange = props.handleChange,
+      handleUpload = props.handleUpload,
+      updateProfile = props.updateProfile,
+      fields = props.fields,
+      hide = props.hide,
+      isUpload = props.isUpload;
   var profile = profileSelector.profile,
-      isFetching = profileSelector.isFetching;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    className: "container-sm p-5",
-    children: isFetching === true && profile !== {} ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      isFetching = profileSelector.isFetching,
+      successResponse = profileSelector.successResponse;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "container-sm p-5 text-center",
+    children: isFetching === true && profile !== {} ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "d-flex justify-content-center mt-5 p-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_2__.CustomSpinner, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_1__.CustomSpinner, {
         text: 'primary'
       })
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "d-flex justify-content-center flex-wrap",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProfileLeft__WEBPACK_IMPORTED_MODULE_4__.ProfileLeft, {
-        profile: profile
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProfileRight__WEBPACK_IMPORTED_MODULE_5__.ProfileRight, {})]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "row",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProfileLeft__WEBPACK_IMPORTED_MODULE_2__.ProfileLeft, {
+        profile: profile,
+        fields: fields,
+        isUpload: isUpload,
+        successResponse: successResponse,
+        handleUpload: handleUpload
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProfileRight__WEBPACK_IMPORTED_MODULE_3__.ProfileRight, {
+        handleChange: handleChange,
+        profileSelector: profileSelector,
+        fields: fields,
+        hide: hide,
+        updateProfile: updateProfile
+      })]
     })
   });
-};
+}, function (prevProps, currentProps) {
+  if (currentProps.profileSelector.isFetching === false) {
+    return false;
+  } else {
+    return true;
+  }
+});
 
 /***/ }),
 
@@ -6592,9 +6615,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile */ "./resources/js/Pages/Profile/Profile.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_AuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/actions/AuthActions */ "./resources/js/redux/actions/AuthActions.js");
-/* harmony import */ var _echo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../echo */ "./resources/js/echo.js");
-/* harmony import */ var _hooks_useForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../hooks/useForm */ "./resources/js/hooks/useForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _hooks_useForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../hooks/useForm */ "./resources/js/hooks/useForm.js");
+/* harmony import */ var _redux_actions_ProfileAction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/actions/ProfileAction */ "./resources/js/redux/actions/ProfileAction.js");
+/* harmony import */ var _propTypes_Auth_authPropsValidation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../propTypes/Auth/authPropsValidation */ "./resources/js/propTypes/Auth/authPropsValidation.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -6605,14 +6642,24 @@ __webpack_require__.r(__webpack_exports__);
 var ProfileContainer = function ProfileContainer() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   var token = localStorage.getItem('user-token');
-  var profileSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    return {
-      isFetching: state.auth.isFetching,
-      profile: state.auth.profile
-    };
-  });
 
-  var _useForm = (0,_hooks_useForm__WEBPACK_IMPORTED_MODULE_5__.useForm)({
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      hide = _useState2[0],
+      setHide = _useState2[1];
+
+  var profileSelector = (0,_propTypes_Auth_authPropsValidation__WEBPACK_IMPORTED_MODULE_6__.authPropsValidation)((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+    return {
+      loading: state.auth.loading,
+      isFetching: state.auth.isFetching,
+      profile: state.auth.profile,
+      errorResponse: state.auth.errorResponse,
+      successResponse: state.auth.successResponse
+    };
+  }));
+  console.log(profileSelector);
+
+  var _useForm = (0,_hooks_useForm__WEBPACK_IMPORTED_MODULE_4__.useForm)({
     name: '',
     email: '',
     avatar: ''
@@ -6620,15 +6667,38 @@ var ProfileContainer = function ProfileContainer() {
       fields = _useForm.fields,
       handleChange = _useForm.handleChange,
       handleUpload = _useForm.handleUpload,
-      handleSubmit = _useForm.handleSubmit;
+      setFields = _useForm.setFields,
+      isUpload = _useForm.isUpload; // console.log(fields.avatar)
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setFields(profileSelector.profile);
+  }, [profileSelector.profile]);
+
+  var updateProfile = function updateProfile(e) {
+    var formData = new FormData();
+    formData.append('name', fields.name);
+    formData.append('email', fields.email);
+    formData.append('avatar', fields.avatar);
+    dispatch((0,_redux_actions_ProfileAction__WEBPACK_IMPORTED_MODULE_5__.UpdateProfileAction)(formData, setHide, token));
+    setTimeout(function () {
+      setHide(false);
+    }, 3000);
+  };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (token) {
       dispatch((0,_redux_actions_AuthActions__WEBPACK_IMPORTED_MODULE_3__.ViewProfileAction)(token));
     }
   }, [dispatch, token]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Profile__WEBPACK_IMPORTED_MODULE_1__.Profile, {
-    profileSelector: profileSelector
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Profile__WEBPACK_IMPORTED_MODULE_1__.Profile, {
+    profileSelector: profileSelector,
+    handleChange: handleChange,
+    handleUpload: handleUpload,
+    updateProfile: updateProfile,
+    fields: fields,
+    isUpload: isUpload,
+    hide: hide
   });
 };
 
@@ -6654,15 +6724,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var ProfileLeft = function ProfileLeft(props) {
-  var profile = props.profile;
+  var profile = props.profile,
+      handleUpload = props.handleUpload,
+      successResponse = props.successResponse,
+      fields = props.fields,
+      isUpload = props.isUpload;
+  console.log(profile.avatar);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "w-30",
+    className: "col",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
       className: "mt-5",
       children: "Profile"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "card shadow-lg p-3 mb-5 bg-body rounded position-relative",
+      className: "card shadow-lg p-3 mb-5 bg-body rounded position-relative w-100",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Components_CustomTooltip_Tooltip__WEBPACK_IMPORTED_MODULE_1__.Tooltip, {
         text: "upload avatar",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
@@ -6670,26 +6746,45 @@ var ProfileLeft = function ProfileLeft(props) {
           style: {
             cursor: 'pointer'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          children: isUpload === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            style: {
+              width: '100%'
+            },
             src: profile.avatar === null ? _assets_default_png__WEBPACK_IMPORTED_MODULE_2__["default"] : profile.avatar,
             className: "card-img-top",
             alt: profile.name
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            style: {
+              width: '100%'
+            },
+            className: "card-img-top",
+            src: fields.avatar,
+            alt: fields.avatar
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
           accept: "image/*",
           name: "avatar",
           type: "file",
           hidden: true,
+          onChange: handleUpload,
           id: "upload_avatar"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "card-body",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
           className: "card-title",
-          children: profile.name
+          children: successResponse.success === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+            children: successResponse.data.name
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+            children: profile.name
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
           className: "card-text",
-          children: profile.email
+          children: successResponse.success === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+            children: successResponse.data.email
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+            children: profile.email
+          })
         })]
       })]
     })]
@@ -6710,46 +6805,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ProfileRight": () => (/* binding */ ProfileRight)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Components_Validations_AuthValidation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Components/Validations/AuthValidation */ "./resources/js/Components/Validations/AuthValidation.js");
+/* harmony import */ var _Components_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Spinner/CustomSpinner */ "./resources/js/Components/Spinner/CustomSpinner.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
 var ProfileRight = function ProfileRight(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "w-60 ",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
+  var handleChange = props.handleChange,
+      updateProfile = props.updateProfile,
+      fields = props.fields,
+      hide = props.hide,
+      profileSelector = props.profileSelector;
+  var loading = profileSelector.loading,
+      errorResponse = profileSelector.errorResponse,
+      successResponse = profileSelector.successResponse;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "col",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
       className: "mt-5",
       children: "update profile"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "card shadow-lg p-3 mb-5 bg-body rounded",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    }), hide === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Components_Validations_AuthValidation__WEBPACK_IMPORTED_MODULE_1__.AuthValidation, {
+      errorResponse: errorResponse,
+      successResponse: successResponse
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "card shadow-lg p-3 mb-5 bg-body rounded w-100",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
           htmlFor: "update_name",
           className: "form-label",
           children: "name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
           className: "form-control",
           type: "text",
           id: "update-name",
-          name: "name"
+          name: "name",
+          value: fields.name || '',
+          onChange: handleChange
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
           htmlFor: "update_email",
           className: "form-label",
           children: "email"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
           className: "form-control",
           type: "email",
           id: "update-email",
-          name: "email"
+          name: "email",
+          value: fields.email || '',
+          onChange: handleChange
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "mb-3",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        children: loading === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Components_Spinner_CustomSpinner__WEBPACK_IMPORTED_MODULE_2__.CustomSpinner, {
+          text: "primary"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           className: "btn btn-outline-primary",
+          onClick: updateProfile,
           children: "submit"
         })
       })]
@@ -7388,6 +7505,11 @@ var useForm = function useForm() {
       fields = _useState2[0],
       setFields = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isUpload = _useState4[0],
+      setIsUpload = _useState4[1];
+
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var handleChange = function handleChange(e) {
@@ -7395,7 +7517,9 @@ var useForm = function useForm() {
   };
 
   var handleUpload = function handleUpload(e) {
-    setFields(_objectSpread(_objectSpread({}, fields), {}, _defineProperty({}, e.target.name, e.target.files[0])));
+    var files = e.target.files;
+    setFields(_objectSpread(_objectSpread({}, fields), {}, _defineProperty({}, e.target.name, URL.createObjectURL(files[0]))));
+    setIsUpload(false);
   };
 
   var clear = function clear() {
@@ -7414,7 +7538,9 @@ var useForm = function useForm() {
     handleUpload: handleUpload,
     handleChange: handleChange,
     clear: clear,
-    handleSubmit: handleSubmit
+    handleSubmit: handleSubmit,
+    setFields: setFields,
+    isUpload: isUpload
   };
 };
 
@@ -7772,6 +7898,73 @@ var ResetPasswordAction = function ResetPasswordAction(formData, setHide) {
 
 /***/ }),
 
+/***/ "./resources/js/redux/actions/ProfileAction.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/redux/actions/ProfileAction.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UpdateProfileAction": () => (/* binding */ UpdateProfileAction)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/ProfileActionTypes */ "./resources/js/redux/types/ProfileActionTypes.js");
+/* harmony import */ var _options__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../options */ "./resources/js/redux/options.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+var UpdateProfileAction = function UpdateProfileAction(formData, setHide, token) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch({
+                type: _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__.UPDATING
+              });
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat(_options__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/update-profile"), formData, (0,_options__WEBPACK_IMPORTED_MODULE_2__.uploadWithTokenOptions)(token)).then(function (res) {
+                dispatch({
+                  type: _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__.UPDATE_PROFILE_SUCCESS,
+                  payload: res.data
+                });
+                setHide(true);
+              })["catch"](function (error) {
+                dispatch({
+                  type: _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__.UPDATE_PROFILE_ERROR,
+                  payload: error.response
+                });
+                setHide(true);
+              });
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
 /***/ "./resources/js/redux/options.js":
 /*!***************************************!*\
   !*** ./resources/js/redux/options.js ***!
@@ -7818,7 +8011,7 @@ var uploadWithTokenOptions = function uploadWithTokenOptions(token) {
   return {
     headers: {
       'Content-Types': 'multipart/form-data',
-      'Authorization': "Bearer ".concat(token)
+      'Authorization': "Bearer  ".concat(token)
     }
   };
 };
@@ -7837,11 +8030,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "authReducer": () => (/* binding */ authReducer)
 /* harmony export */ });
 /* harmony import */ var _types_AuthActionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/AuthActionTypes */ "./resources/js/redux/types/AuthActionTypes.js");
+/* harmony import */ var _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/ProfileActionTypes */ "./resources/js/redux/types/ProfileActionTypes.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 var initialState = {
@@ -7950,6 +8145,23 @@ var authReducer = function authReducer() {
         errorResponse: action.payload
       });
 
+    case _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__.UPDATING:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__.UPDATE_PROFILE_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
+        successResponse: action.payload
+      });
+
+    case _types_ProfileActionTypes__WEBPACK_IMPORTED_MODULE_1__.UPDATE_PROFILE_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
+        errorResponse: action.payload
+      });
+
     default:
       return state;
   }
@@ -8041,6 +8253,25 @@ var PASSWORD_VERIFIED_ERROR = 'auth/PASSWORD_VERIFIED_ERROR';
 var GET_PASSWORD_RESET_TOKEN = 'auth/GET_PASSWORD_RESET_TOKEN';
 var RESET_PASSWORD_SUCCESS = 'auth/RESET_PASSWORD_SUCCESS';
 var RESET_PASSWORD_ERROR = 'auth/RESET_PASSWORD_ERROR';
+
+/***/ }),
+
+/***/ "./resources/js/redux/types/ProfileActionTypes.js":
+/*!********************************************************!*\
+  !*** ./resources/js/redux/types/ProfileActionTypes.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UPDATE_PROFILE_ERROR": () => (/* binding */ UPDATE_PROFILE_ERROR),
+/* harmony export */   "UPDATE_PROFILE_SUCCESS": () => (/* binding */ UPDATE_PROFILE_SUCCESS),
+/* harmony export */   "UPDATING": () => (/* binding */ UPDATING)
+/* harmony export */ });
+var UPDATING = 'profile/UPDATING';
+var UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS';
+var UPDATE_PROFILE_ERROR = 'profile/UPDATE_PROFILE_ERROR';
 
 /***/ }),
 

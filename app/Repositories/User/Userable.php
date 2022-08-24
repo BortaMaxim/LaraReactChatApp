@@ -10,4 +10,5 @@ interface Userable
     public function profile();
     public function sendResetLinkResponse($request);
     public function sendResetResponse($request);
+    public function updateProfile($request);
 }

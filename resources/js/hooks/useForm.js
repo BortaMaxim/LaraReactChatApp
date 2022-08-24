@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 
 export const useForm = (initialState = {}) => {
     const [fields, setFields] = useState(initialState)
+    const [isUpload, setIsUpload] = useState(true)
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -12,10 +13,13 @@ export const useForm = (initialState = {}) => {
         })
     }
     const handleUpload = (e) => {
+        let files = e.target.files
+
         setFields({
             ...fields,
-            [e.target.name]: e.target.files[0]
+            [e.target.name]: URL.createObjectURL(files[0])
         })
+        setIsUpload(false)
     }
 
     const clear = () => {
@@ -28,5 +32,5 @@ export const useForm = (initialState = {}) => {
         clear()
     }
 
-    return {fields, handleUpload, handleChange, clear, handleSubmit}
+    return {fields, handleUpload, handleChange, clear, handleSubmit, setFields, isUpload}
 }

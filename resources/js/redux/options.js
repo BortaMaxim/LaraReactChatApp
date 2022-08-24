@@ -28,7 +28,7 @@ export const uploadWithTokenOptions = (token) => {
     return {
         headers: {
             'Content-Types': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer  ${token}`
         }
     }
 }
