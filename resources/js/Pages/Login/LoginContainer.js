@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {AuthForm} from "../../Components/Auth/AuthForm";
 import {useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {useForm} from "../../hooks/useForm";
 import {LoginAction} from "../../redux/actions/AuthActions";
 import {authPropsValidation} from "../../propTypes/Auth/authPropsValidation";
-import echo from '../../echo'
+import {echo} from '../../echo'
 
 export const LoginContainer = () => {
     const history = useHistory()
@@ -26,6 +26,7 @@ export const LoginContainer = () => {
             setHide(true)
         }, 3000)
     }
+
     return (
         <AuthForm
             title='Login'

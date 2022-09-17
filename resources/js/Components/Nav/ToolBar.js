@@ -24,11 +24,6 @@ export const ToolBar = ({handleActive, id, verifiedToken, logout}) => {
                             </button>
                         </ul>
                         : <ul className="navbar-nav justify-content-end flex-grow-1 pe-3 mt-3">
-                            <li className="nav-item" onClick={() => handleActive('link1')}
-                                style={{backgroundColor: id === 'link1' ? '#c28172' : ''}}
-                            >
-                                <Link className="nav-link text-white" aria-current="page" to="/">Home</Link>
-                            </li>
                             <li className="nav-item" onClick={() => handleActive('link3')}
                                 style={{backgroundColor: id === 'link3' ? '#c28172' : ''}}>
                                 <Link className="nav-link text-white" to="/login">Login</Link>

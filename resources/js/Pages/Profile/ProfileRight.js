@@ -2,7 +2,7 @@ import React from 'react';
 import {AuthValidation} from "../../Components/Validations/AuthValidation";
 import {CustomSpinner} from "../../Components/Spinner/CustomSpinner";
 
-export const ProfileRight = (props) => {
+export const ProfileRight = React.memo((props) => {
     const {handleChange, updateProfile, fields, hide, profileSelector} = props
     const {loading, errorResponse, successResponse} = profileSelector
     return (
@@ -48,4 +48,10 @@ export const ProfileRight = (props) => {
             </div>
         </div>
     )
-}
+}, (prevProps, currentProps) => {
+    if (currentProps.profileSelector.isFetching === false) {
+        return false
+    }else {
+        return true
+    }
+})

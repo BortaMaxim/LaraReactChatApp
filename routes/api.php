@@ -37,4 +37,5 @@ Route::group(['prefix' => 'auth', ',middleware' => 'cors'], function ($router) {
         Route::post('update-profile', [ProfileController::class, 'update_profile']);
         Route::get('logout', [UserController::class, 'logout_user']);
     });
+
 });

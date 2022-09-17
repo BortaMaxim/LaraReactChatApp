@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {LogoutAction, ViewProfileAction} from "../../redux/actions/AuthActions";
 import {useHistory} from "react-router-dom";
 import {authPropsValidation} from "../../propTypes/Auth/authPropsValidation";
+import {echo} from '../../echo'
 
 export const NavBar = () => {
     const dispatch = useDispatch()

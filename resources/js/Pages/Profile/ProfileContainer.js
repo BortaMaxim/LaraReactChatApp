@@ -5,9 +5,12 @@ import {ViewProfileAction} from "../../redux/actions/AuthActions";
 import {useForm} from "../../hooks/useForm";
 import {UpdateProfileAction} from "../../redux/actions/ProfileAction";
 import {authPropsValidation} from "../../propTypes/Auth/authPropsValidation";
+import {useHistory} from "react-router-dom";
+import {echo} from "../../echo";
 
 export const ProfileContainer = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const token = localStorage.getItem('user-token')
     const [hide, setHide] = useState(null)
 
@@ -19,25 +22,30 @@ export const ProfileContainer = () => {
         successResponse: state.auth.successResponse,
     })))
 
-    console.log(profileSelector)
-    const {fields, handleChange, handleUpload, setFields, isUpload} = useForm({
+    const {fields, handleChange, handleUpload, setFields} = useForm({
         name: '',
         email: '',
         avatar: ''
     })
 
-    // console.log(fields.avatar)
-
     useEffect(() => {
         setFields(profileSelector.profile)
     }, [profileSelector.profile])
+
+    useEffect(() => {
+        echo.channel('user-status')
+            .listen('LoggedInEvent', (data) => {
+            console.log(data)
+            console.log('Echo channel')
+        })
+    }, [])
 
     const updateProfile = (e) => {
         let formData = new FormData()
         formData.append('name', fields.name)
         formData.append('email', fields.email)
         formData.append('avatar', fields.avatar)
-        dispatch(UpdateProfileAction(formData, setHide, token))
+        dispatch(UpdateProfileAction(formData, setHide, token, history))
         setTimeout(() => {
             setHide(false)
         }, 3000)
@@ -56,7 +64,6 @@ export const ProfileContainer = () => {
             handleUpload={handleUpload}
             updateProfile={updateProfile}
             fields={fields}
-            isUpload={isUpload}
             hide={hide}
         />
     )

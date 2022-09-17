@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import {RegisterContainer} from "../Pages/Register/RegisterContainer";
 import {LoginContainer} from "../Pages/Login/LoginContainer";
-import {HomeContainer} from "../Pages/Home/HomeContainer";
+import {ChatContainer} from "../Pages/Chat/ChatContainer";
 import {NoMatch} from "../Components/NoMatch/NoMatch";
 import {GuardRoutes} from "./GuardRoutes";
 import {PrivateRoutes} from "./PrivateRoutes";
@@ -27,9 +27,6 @@ export const PublicRoutes = () => {
             </Route>
             <Route exact path="/login">
                 <LoginContainer />
-            </Route>
-            <Route exact path="/">
-                <HomeContainer />
             </Route>
             <GuardRoutes
                 path={'/user'}

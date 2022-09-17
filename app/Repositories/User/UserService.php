@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Events\LoggedInEvent;
 use App\Events\UserOffline;
 use App\Events\UserOnline;
 use App\Models\User;
@@ -47,7 +48,7 @@ class UserService implements Userable
         ], 200);
     }
 
-    public function login($request)
+    public function login($request): \Illuminate\Http\JsonResponse
     {
         $request->validated();
         $credentials = $request->only('email', 'password');
@@ -71,6 +72,7 @@ class UserService implements Userable
                 $accessToken = auth()->user()->createToken('accessToken')->accessToken;
                 $user->status = 'online';
                 $user->save();
+
                 $responseMessage = "Login Successful";
                 return response()->json([
                     'success' => true,
@@ -105,6 +107,7 @@ class UserService implements Userable
 
     function profile(): \Illuminate\Http\JsonResponse
     {
+        event(new LoggedInEvent(auth()->user()));
         return response()->json([
             'data' => auth()->user(),
         ]);
@@ -147,21 +150,22 @@ class UserService implements Userable
     {
 
         $request->validated();
-        $avatar_path = $request->avatar;
+        $avatar_request = $request->avatar;
         if ($avatar = $request->file('avatar')) {
-            $avatar->move('avatars', $avatar_path);
+            $avatar_name = $avatar_request->getClientOriginalName();
+            $avatar->move('avatars', $avatar_name);
         }
 
         $auth_user = auth()->user();
         $auth_user->name = $request->name;
         $auth_user->email = $request->email;
-        $auth_user->avatar = $avatar_path;
+        $auth_user->avatar = $avatar_name;
         $auth_user->save();
 
         return response()->json([
             'success' => true,
             'message' => 'user updated!',
-            'data' => $auth_user,
+            'data' => $auth_user
         ]);
     }
 }

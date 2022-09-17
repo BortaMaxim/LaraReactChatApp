@@ -7,6 +7,8 @@ use App\Http\Requests\RegisterUserRequest;
 use App\Repositories\User\Userable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Events\LoggedInEvent;
+
 
 /**
  * @property Userable $user

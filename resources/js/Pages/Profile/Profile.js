@@ -4,9 +4,8 @@ import {ProfileLeft} from "./ProfileLeft";
 import {ProfileRight} from "./ProfileRight";
 
 export const Profile = React.memo((props) => {
-    const {profileSelector, handleChange, handleUpload, updateProfile, fields, hide, isUpload} = props
+    const {profileSelector, handleChange, handleUpload, updateProfile, fields, hide} = props
     const {profile, isFetching, successResponse} = profileSelector
-
     return (
         <div className="container-sm p-5 text-center">
             {
@@ -17,8 +16,6 @@ export const Profile = React.memo((props) => {
                     : <div className="row">
                         <ProfileLeft
                             profile={profile}
-                            fields={fields}
-                            isUpload={isUpload}
                             successResponse={successResponse}
                             handleUpload={handleUpload}
                         />

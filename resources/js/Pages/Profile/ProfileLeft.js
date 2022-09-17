@@ -1,10 +1,11 @@
 import React from 'react';
 import {Tooltip} from "../../Components/CustomTooltip/Tooltip";
 import avatarDefault from "../../../assets/default.png";
+import {URL} from '../../redux/options'
 
-export const ProfileLeft = (props) => {
-    const {profile, handleUpload, successResponse, fields, isUpload} = props
-    console.log(profile.avatar)
+export const ProfileLeft = React.memo((props) => {
+    const {profile, handleUpload, successResponse} = props
+
     return (
         <div className="col">
             <h4 className="mt-5">Profile</h4>
@@ -14,18 +15,10 @@ export const ProfileLeft = (props) => {
                         htmlFor="upload_avatar"
                         style={{cursor: 'pointer'}}
                     >
-                        {
-                            isUpload === true
-                                ? <img style={{width: '100%'}}
-                                       src={profile.avatar === null ? avatarDefault : profile.avatar}
-                                       className="card-img-top" alt={profile.name}
-                                />
-                                : <img style={{width: '100%'}}
-                                       className="card-img-top"
-                                       src={fields.avatar}
-                                       alt={fields.avatar}
-                                />
-                        }
+                        <img style={{width: '100%'}}
+                             src={profile.avatar === null ? avatarDefault : `${URL}/avatars/${profile.avatar}`}
+                             className="card-img-top" alt={profile.name}
+                        />
                     </label>
                     <input
                         accept="image/*"
@@ -55,4 +48,11 @@ export const ProfileLeft = (props) => {
             </div>
         </div>
     )
-}
+}, (prevProps, currentProps) => {
+
+    if (currentProps.profile.avatar !== undefined) {
+        return false
+    }else {
+        return true
+    }
+})

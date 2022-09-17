@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('online', function ($user) {
-    return $user;
-});
-Broadcast::channel('offline', function ($user) {
-    return $user;
+Broadcast::channel('user-status', function ($user) {
+    return true;
 });
